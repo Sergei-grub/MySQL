@@ -14,10 +14,10 @@ price – числовой тип, беззнаковый.
 */
 
 
-
 CREATE DATABASE GB_task1;
 USE GB_task1;
 
+DROP TABLE IF EXISTS mobile_phones;
 CREATE TABLE mobile_phones
 (
 	id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
