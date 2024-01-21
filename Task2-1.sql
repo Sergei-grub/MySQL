@@ -75,4 +75,19 @@ SELECT manufacturer FROM mobile_phones;
 SELECT * FROM manufacturer;
 
 
+/*
+Статусы количества мобильных телефонов (в зависимости от количества): меньше 100 – «little»; от 100 до 300 – «many»; больше 300 – «lots».
+Необходимо вывести название, производителя и статус количества для мобильных телефонов.
+*/
 
+SELECT product_name, manufacturer,
+CASE
+	WHEN product_count < 100
+		THEN 'little'
+	WHEN product_count BETWEEN 100 AND 300
+		THEN 'many'		
+	WHEN product_count > 300
+		THEN 'lots'
+END AS product_status
+FROM mobile_phones
+ORDER BY product_count DESC;
