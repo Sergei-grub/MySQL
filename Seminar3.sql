@@ -17,7 +17,7 @@ INSERT INTO example3
 (name, surname, speciality, seniority, salary, age)
 VALUES 
 ('Мария', 'Андрианова', 'начальник', 40, 100000, 60),
-('Кирилл', 'Константинов', 'инженер', 2, 70000, 30),
+('Кирилл', 'Константинов', 'инженер', 2, 70000, 29),
 ('Максим', 'Горячев', 'инженер', 40, 30000, 59),
 ('Варвара', 'Уварова', 'рабочий', 20, 25000, 40),
 ('Арсений', 'Шилов', 'рабочий', 40, 30000, 59),
@@ -164,3 +164,72 @@ SELECT speciality AS salary_
 	FROM example3
     GROUP BY speciality 
     HAVING AVG(salary) > 30000;
+    
+    
+SELECT * FROM example3;
+
+SELECT COUNT(*)
+	FROM example3
+    WHERE speciality = 'рабочий' AND age BETWEEN 24 AND 49;
+    
+SELECT COUNT(*)
+	FROM 
+		(SELECT DISTINCT speciality FROM example3) AS List;
+
+SELECT DISTINCT speciality
+	FROM 
+		(SELECT age, speciality
+			FROM example3
+            GROUP BY age, speciality 
+            HAVING AVG(age) < 30) AS List;  
+            
+SELECT age, speciality
+	FROM example3
+    GROUP BY age, speciality 
+    HAVING AVG(age) < 30;
+    
+    
+SELECT DISTINCT speciality
+	FROM example3;
+	-- WHERE age < 30;
+    
+SELECT age, speciality
+    FROM 
+		(SELECT DISTINCT speciality FROM example3) AS List
+	GROUP BY speciality, age 
+    HAVING AVG(age) < 30;
+	-- WHERE age < 30;
+    
+
+SELECT age, speciality
+	FROM example3
+    GROUP BY age, speciality 
+    HAVING AVG(age) < 30;
+
+/* 
+Сгруппируйте данные о сотрудниках по возрасту:
+1 группа - младше 20 лет;
+2 группа - от 20 до 40 лет;
+3 группа - старше 40 лет;
+Для каждой группы найдите суммарную зарплату
+*/
+
+SELECT name_age, AVG(salary)
+	FROM 
+		(SELECT salary,
+			CASE
+				WHEN age < 25 THEN 'Младше 20 лет'
+                WHEN age BETWEEN 25 AND 40 THEN 'от 20 до 40 лет'
+                WHEN age > 40 THEN 'Cтарше 40 лет'
+                ELSE 'Не определено'
+			END AS name_age
+		FROM example3 ) AS List
+    GROUP BY name_age;
+
+SELECT AVG(age) 
+	FROM example3
+	IF (age < 30);
+	
+
+    
+  
